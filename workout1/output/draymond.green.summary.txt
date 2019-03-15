@@ -1,0 +1,24 @@
+                 team_name    game_date          season        period      minutes_remaining seconds_remaining shot_made_flag    
+ Golden State Warriors:578   Length:578         2016:578   Min.   :1.000   Min.   : 0.000    Min.   : 0.00     Length:578        
+                             Class :character              1st Qu.:1.000   1st Qu.: 2.000    1st Qu.:15.25     Class :character  
+                             Mode  :character              Median :2.000   Median : 6.000    Median :31.00     Mode  :character  
+                                                           Mean   :2.327   Mean   : 5.536    Mean   :29.59                       
+                                                           3rd Qu.:3.000   3rd Qu.: 9.000    3rd Qu.:44.00                       
+                                                           Max.   :4.000   Max.   :11.000    Max.   :59.00                       
+                                                                                                                                 
+             action_type           shot_type   shot_distance                    opponent         x                 y             name          
+ Jump Shot         :240   2PT Field Goal:346   Min.   : 0.00   Houston Rockets      : 52   Min.   :-248.00   Min.   :-31.0   Length:578        
+ Layup Shot        : 59   3PT Field Goal:232   1st Qu.: 1.00   Sacramento Kings     : 42   1st Qu.: -27.00   1st Qu.:  8.0   Class :character  
+ Pullup Jump shot  : 44                        Median : 6.00   New Orleans Pelicans : 29   Median :   0.00   Median : 36.0   Mode  :character  
+ Driving Layup Shot: 33                        Mean   :12.17   Oklahoma City Thunder: 29   Mean   :  -7.17   Mean   :100.6                     
+ Tip Layup Shot    : 26                        3rd Qu.:25.00   Dallas Mavericks     : 27   3rd Qu.:  18.75   3rd Qu.:217.0                     
+ Cutting Dunk Shot : 22                        Max.   :55.00   Memphis Grizzlies    : 26   Max.   : 240.00   Max.   :535.0                     
+ (Other)           :154                                        (Other)              :373                                                       
+    minutes     
+ Min.   : 1.00  
+ 1st Qu.:10.00  
+ Median :23.00  
+ Mean   :22.39  
+ 3rd Qu.:33.00  
+ Max.   :48.00  
+                

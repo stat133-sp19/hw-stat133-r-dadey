@@ -1,0 +1,24 @@
+                 team_name     game_date          season         period      minutes_remaining seconds_remaining shot_made_flag    
+ Golden State Warriors:1250   Length:1250        2016:1250   Min.   :1.000   Min.   : 0.000    Min.   : 0.00     Length:1250       
+                              Class :character               1st Qu.:1.000   1st Qu.: 1.000    1st Qu.:13.00     Class :character  
+                              Mode  :character               Median :2.000   Median : 4.000    Median :29.00     Mode  :character  
+                                                             Mean   :2.305   Mean   : 4.221    Mean   :28.53                       
+                                                             3rd Qu.:3.000   3rd Qu.: 7.000    3rd Qu.:44.00                       
+                                                             Max.   :4.000   Max.   :11.000    Max.   :59.00                       
+                                                                                                                                   
+              action_type           shot_type   shot_distance                    opponent         x                  y        
+ Jump Shot          :596   2PT Field Goal:563   Min.   : 0.00   Los Angeles Clippers : 78   Min.   :-246.000   Min.   :-36.0  
+ Pullup Jump shot   :158   3PT Field Goal:687   1st Qu.: 5.00   Houston Rockets      : 75   1st Qu.: -96.500   1st Qu.: 18.0  
+ Step Back Jump shot: 75                        Median :23.00   Sacramento Kings     : 71   Median :   0.500   Median :144.0  
+ Layup Shot         : 60                        Mean   :17.99   Memphis Grizzlies    : 69   Mean   :  -3.642   Mean   :135.4  
+ Driving Layup Shot : 58                        3rd Qu.:26.00   Oklahoma City Thunder: 69   3rd Qu.:  91.000   3rd Qu.:228.0  
+ Floating Jump shot : 36                        Max.   :71.00   New Orleans Pelicans : 68   Max.   : 240.000   Max.   :717.0  
+ (Other)            :267                                        (Other)              :820                                     
+     name              minutes     
+ Length:1250        Min.   : 1.00  
+ Class :character   1st Qu.:10.25  
+ Mode  :character   Median :24.00  
+                    Mean   :23.44  
+                    3rd Qu.:34.00  
+                    Max.   :48.00  
+                                   

@@ -1,30 +1,90 @@
 ---
-title: "Untitled"
+title: "Workout"
 author: "Reigne Dadey"
 date: "9 March 2019"
-output: gitub_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+setwd("C:/Users/RD/Documents/R/workout1/")
+
+library("tidyverse")
+library("readr")
+classes <-
+  c(
+    "integer", #id
+    "factor", #team_name
+    "character", #game_date
+    "factor", #season
+    "integer", #period
+    "integer", #minutes_remaining
+    "integer", #seconds_remaining
+    "character", #shot_made_flag
+    "factor", #action_type
+    "factor", #shot_type
+    "integer", #shot_distance
+    "factor", #opponent
+    "integer", #x
+    "integer", #y
+    "character", #names
+    "integer" #minutes remaining
+  )
+
+players <-
+  read_csv(
+  "./data/shots.data.csv",
+  col_types = cols_only(
+  team_name = col_character(),
+  game_date = col_character(),
+  season = col_double(),
+  period = col_double(),
+  minutes_remaining = col_double(),
+  seconds_remaining = col_double(),
+  shot_made_flag = col_character(),
+  action_type = col_character(),
+  shot_type = col_character(),
+  shot_distance = col_double(),
+  opponent = col_character(),
+  x = col_double(),
+  y = col_double(),
+  name = col_character(),
+  minutes = col_double()
+  )
+  )
+  
 ```
+#What makes basketball greatness?
+For California's Golden State Warriors, the 2016 season was another resounding success.  After breaking a forty-year championship drought in 2014-2015, the team won their second of three NBA titles in four years.  But what was the reason for their success?
 
-## R Markdown
+Many argue that this is in no part, due to the work of the Golden Warrior's five captains:  Andre Iguodala, Stephen Curry, Klay Thompson, Draymond Green and Kevin Durant.  All five players are strong shooters; and all maintained a 40% + success rate for all shots made during the season.  However, there is significant variation in the players' shooting styles, which begs the question:  do the players make the team, or does the team make the players?
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+To explain the Warrior's resounding success, this article will analyse the shooting patterns of the these captains.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+##About the players
 
-```{r cars}
-summary(cars)
+
+```{r generate tables}
+
+twopts <- players %>%
+  filter(shot_type == "2PT Field Goal") %>%
+  group_by(name) %>%
+  summarise(Total = length(shot_type), Made = length(shot_made_flag[shot_made_flag == "shot.yes"]), Percentage = Made*100/Total) %>%
+  arrange(desc(Percentage))
+
+threepts <- players %>%
+  filter(shot_type == "3PT Field Goal") %>%
+  group_by(name) %>%
+  summarise(Total = length(shot_type), Made = length(shot_made_flag[shot_made_flag == "shot.yes"]), Percentage = Made*100/Total) %>%
+  arrange(desc(Percentage))
+
+allpts <- players %>%
+  group_by(name) %>%
+  summarise(Total = length(shot_type), Made = length(shot_made_flag[shot_made_flag == "shot.yes"]), Percentage = Made*100/Total) %>%
+  arrange(desc(Percentage))
+
+as.data.frame(twopts)
+as.data.frame(threepts)
+as.data.frame(allpts)
+
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

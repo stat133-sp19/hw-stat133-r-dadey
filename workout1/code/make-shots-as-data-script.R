@@ -25,7 +25,7 @@ classes <-
     #period
     "integer",
     #minutes_remaining
-    "real",
+    "integer",
     #seconds_remaining
     "character",
     #shot_made_flag
@@ -39,7 +39,9 @@ classes <-
     #opponent
     "integer",
     #x
-    "integer"  #y
+    "integer",  #y
+    "character", #names
+    "integer" #minutes remaining
   )
 
 #Read CSVs
@@ -106,13 +108,9 @@ stephen.curry$shot_made_flag[stephen.curry$shot_made_flag == "n"] <-
 
 #Calculate minutes remaning
 andre.iguodala$minutes = 12 * andre.iguodala$period - andre.iguodala$minutes_remaining
-
 draymond.green$minutes = 12 * draymond.green$period - draymond.green$minutes_remaining
-
 kevin.durant$minutes = 12 * kevin.durant$period - kevin.durant$minutes_remaining
-
 klay.thompson$minutes = 12 * klay.thompson$period - klay.thompson$minutes_remaining
-
 stephen.curry$minutes = 12 * stephen.curry$period - stephen.curry$minutes_remaining
 
 #Print summary of player data

@@ -1,4 +1,4 @@
-###Data Dictionary
+### Data Dictionary
 
 Variable Name | Plot Name | Type | No Obs. (Unique) | Description
 --------------|-----------|------|------------------|-------------

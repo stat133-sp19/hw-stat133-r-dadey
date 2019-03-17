@@ -187,8 +187,134 @@ $(document).ready(function () {
 </div>
 
 
-<p>Information derived from: C:1#Data Dictionary</p>
-<p>Variable Name | Plot Name | Type | No Obs | Description ________________________________________________________ name | Name | char | 5 | Player’s full name ________________________________________________________</p>
+<div id="data-dictionary" class="section level3">
+<h3>Data Dictionary</h3>
+<table style="width:93%;">
+<colgroup>
+<col width="20%"></col>
+<col width="16%"></col>
+<col width="9%"></col>
+<col width="26%"></col>
+<col width="19%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Plot Name</th>
+<th>Type</th>
+<th>No Obs. (Unique)</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>name</td>
+<td>Name</td>
+<td>char</td>
+<td>5</td>
+<td>Player’s full name</td>
+</tr>
+<tr class="even">
+<td>team_name</td>
+<td>Team Name</td>
+<td>factor</td>
+<td>1</td>
+<td>Name of basketball team</td>
+</tr>
+<tr class="odd">
+<td>game_date</td>
+<td>Date</td>
+<td>char</td>
+<td>71</td>
+<td>Date of match</td>
+</tr>
+<tr class="even">
+<td>season</td>
+<td>Season</td>
+<td>factor</td>
+<td>1</td>
+<td>NBA season = ‘2016’</td>
+</tr>
+<tr class="odd">
+<td>period</td>
+<td>Period</td>
+<td>int</td>
+<td>4</td>
+<td>Period of match</td>
+</tr>
+<tr class="even">
+<td>minutes_remaining</td>
+<td>Minutes Remaining</td>
+<td>int</td>
+<td>11</td>
+<td>Number of minutes remaining in period</td>
+</tr>
+<tr class="odd">
+<td>seconds_remaining</td>
+<td>Seconds Remaining</td>
+<td>int</td>
+<td>11</td>
+<td>Number of seconds remaining in period; remainder of minutes</td>
+</tr>
+<tr class="even">
+<td>shot_made_flag</td>
+<td>Shot successful?</td>
+<td>chr</td>
+<td>2</td>
+<td>Indicates if shot was successful</td>
+</tr>
+<tr class="odd">
+<td>action_type</td>
+<td>Shot Type</td>
+<td>factor</td>
+<td>33</td>
+<td>Type of shot</td>
+</tr>
+<tr class="even">
+<td>shot_type</td>
+<td>Points</td>
+<td>factor</td>
+<td>2</td>
+<td>Point value of shot</td>
+</tr>
+<tr class="odd">
+<td>shot_distance</td>
+<td>Distance</td>
+<td>int</td>
+<td>56</td>
+<td>Distance of shot (in ft)</td>
+</tr>
+<tr class="even">
+<td>opponent</td>
+<td>Opponent</td>
+<td>factor</td>
+<td>28</td>
+<td>Opponents in match</td>
+</tr>
+<tr class="odd">
+<td>x</td>
+<td>X Coordinate (inches)</td>
+<td>int</td>
+<td>356</td>
+<td>X Coordinate of shot, with respect to centreline</td>
+</tr>
+<tr class="even">
+<td>y</td>
+<td>Y Coordinate (inches)</td>
+<td>int</td>
+<td>225</td>
+<td>Y Coordinate of shot, with respect to centreline</td>
+</tr>
+<tr class="odd">
+<td>minutes</td>
+<td>Minutes Played</td>
+<td>num</td>
+<td>48</td>
+<td>Number of minutes elapsed at time of shot</td>
+</tr>
+</tbody>
+</table>
+</div>
 
 
 

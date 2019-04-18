@@ -1,0 +1,114 @@
+---
+title: "Warmup.6.Reigne.Dadey"
+author: "Reigne Dadey"
+date: "3 April 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+
+```{r FV}
+#  @ FV calculates future value of single deposits
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value after 'years' years
+
+FV <- function(amount, rate, years){
+  if (years < 0){
+    stop("years must be positive")
+  }
+    return(amount*((1+rate)^years))
+}
+```
+
+```{r FVA}
+#  @ FV calculates future value of a stream of consistently timed, identical deposits
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value of annuity after 'years' years
+
+FVA <- function(contrib, rate, years){
+  if (years < 0){
+    stop("years must be positive")
+  }
+  return(contrib*((((1+rate)^years) - 1)/rate))
+}
+```
+
+```{r FVGA}
+#  @ FVGA calculates future value of a stream of consistently timed deposits growing at a constant rate
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value of growing annuity after 'years' years
+
+FVGA <- function(contrib, rate, growth, years){
+  if (years < 0){
+    stop("years must be positive")
+  }
+  return(contrib*((((1+rate)^years) - ((1+growth)^years))/(rate-growth)))
+}
+```
+
+``` {r modalities}
+# @ savings compiles outcomes of various saving schemes
+# @ inputs:  as above
+# @ output:  FV of FV, FV + FVA, and FV + FVGA schemes respectively
+
+savings <- function(i, c, t, g, r) {
+  m <- data.frame(matrix(0, ncol = 4, nrow = (t+1)))
+m[ , 1] <- c(0:t)
+names(m) <- c("year", "no.contrib","fixed.contrib", "growing.contrib")
+for (t in 0:t) {
+  m[t+1, 2] <- FV(i, r, t)
+  m[t+1, 3] <- FV(i, r, t) + FVA(c, r, t)
+  m[t+1, 4] <- FV(i, r, t) + FVGA(c, r, g, t)
+}
+return(m)
+}
+
+modalities <- savings(1000,200,10,0.03,0.05)
+  
+ggplot(data = modalities) +
+  geom_line(aes(x = year, y = no.contrib, colour = names(modalities)[[2]]), size = 1.2) +
+  geom_line(aes(x = year, y = fixed.contrib, colour = names(modalities)[[3]]), size = 1.2) +
+  geom_line(aes(x = year, y = growing.contrib, colour = names(modalities)[[4]]), size = 1.2) +
+  labs(title = "Savings Growth", x = "Year", y = "Savings ($)") +
+  scale_color_discrete(name = "Schemes", labels = c("No contribution", "Fixed contribution", "Growing contribution")) +
+  theme_classic()
+  
+```
+
+``` {r}
+# Define savings plans
+reg <- c(10000, 2000, 15, 0.04, 0.001)
+high <- c(10000, 2000, 15, 0.04, 0.0225)
+ind <- c(10000, 2000, 15, 0.04, 0.065)
+
+plans <- list(reg, high, ind)
+for (i in 1:length(plans)){
+  nam <- paste("Results", i, sep = "")
+  assign(nam, savings(plans[[i]][1], plans[[i]][2], t = plans[[i]][3], plans[[i]][4], plans[[i]][5]))
+}
+
+#Assign names
+Results1$plan <- "Regular"
+Results2$plan <- "High"
+Results3$plan <- "Index"
+
+#Bind dataframes
+Results.Overall <-rbind(Results1,Results2,Results3)
+
+#Plot
+ggplot(data = Results.Overall) +
+  geom_line(aes(x = year, y = no.contrib, colour = names(Results.Overall)[[2]]), size = 1.2) +
+  geom_line(aes(x = year, y = fixed.contrib, colour = names(Results.Overall)[[3]]), size = 1.2) +
+  geom_line(aes(x = year, y = growing.contrib, colour = names(Results.Overall)[[4]]), size = 1.2) +
+  facet_grid(. ~ plan) +
+  labs(title = "Savings Growth", x = "Year", y = "Savings ($)") +
+  scale_color_discrete(name = "Schemes", labels = c("No contribution", "Fixed contribution", "Growing contribution")) +
+  theme_bw()
+
+
+```
+

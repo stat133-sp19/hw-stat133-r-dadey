@@ -1,0 +1,56 @@
+FV <- function(amount, rate, years) {
+  if (min(years) < 0) {
+    stop("years must be positive")
+  }
+  return(amount*((1+rate)^years))
+}
+
+#Future Value Annuity
+#  @ FV calculates future value of a stream of consistently timed, identical deposits
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value of annuity after 'years' years
+
+FVA <- function(contrib, rate, years){
+  if (min(years) < 0) {
+    stop("years must be positive")
+  }
+  return(contrib*((((1+rate)^years) - 1)/rate))
+}
+
+#Future value growth annuity
+#  @ FVGA calculates future value of a stream of consistently timed deposits growing at a constant rate
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value of growing annuity after 'years' years
+
+FVGA <- function(contrib, rate, growth, years) {
+  if (min(years) < 0){
+    stop("years must be positive")
+  }
+  return(contrib*((((1+rate)^years) - ((1+growth)^years))/(rate-growth)))
+}
+
+input = list()
+input$yrs = 10
+input$rtrn = 0.05
+input$in.amnt = 1000
+input$an.cnt = 2000
+input$grth = 0.02
+
+
+#Blank Table
+modalities <- data.frame(array(0, c(input$yrs + 1, 4)))
+
+#Years Column
+modalities[ , 1] <- c(0:input$yrs)
+
+#Column Names
+names(modalities) <- c("Year", "No contribution", "Fixed contribution", "Growing Contribution")
+
+#Columns with data
+modalities[ , 2] <- FV(input$in.amnt, input$rtrn, 0:input$yrs)
+modalities[ , 3] <- FV(input$in.amnt, input$rtrn, 0:input$yrs) + FVA(input$an.cnt, input$rtrn, 0:input$yrs)
+modalities[ , 4] <- FV(input$in.amnt, input$rtrn, 0:input$yrs) + FVGA(input$an.cnt, input$rtrn, input$grth, 0:input$yrs)
+
+balance.longtable = melt.data.frame(modalities, id.vars = "Year", variable_name = "Plan")
+
+ggplot(data = balance.longtable) + geom_line(aes(x = Year, y = value, colour = Plan)) + facet_grid( .~ Plan)

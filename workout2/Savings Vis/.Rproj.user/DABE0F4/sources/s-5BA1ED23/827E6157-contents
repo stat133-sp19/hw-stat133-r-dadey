@@ -1,0 +1,161 @@
+#
+# This is a Shiny web application. You can run the application by clicking
+# the 'Run App' button above.
+#
+# Find out more about building applications with Shiny here:
+#
+#    http://shiny.rstudio.com/
+#
+
+library(shiny)
+library(ggplot2)
+library(reshape)
+
+#Define FV, FVA and FVGA functions
+#Future Value
+#  @ FV calculates future value of single deposits
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value after 'years' years
+
+FV <- function(amount, rate, years) {
+  if (min(years) < 0) {
+    stop("years must be positive")
+  }
+  return(amount*((1+rate)^years))
+}
+
+#Future Value Annuity
+#  @ FV calculates future value of a stream of consistently timed, identical deposits
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value of annuity after 'years' years
+
+FVA <- function(contrib, rate, years){
+  if (min(years) < 0) {
+    stop("years must be positive")
+  }
+  return(contrib*((((1+rate)^years) - 1)/rate))
+}
+
+#Future value growth annuity
+#  @ FVGA calculates future value of a stream of consistently timed deposits growing at a constant rate
+#  @ Inputs:  deposit amount, rate of return, years of maturity
+#  @ Output:  future value of growing annuity after 'years' years
+
+FVGA <- function(contrib, rate, growth, years) {
+  if (min(years) < 0){
+    stop("years must be positive")
+  }
+  return(contrib*((((1+rate)^years) - ((1+growth)^years))/(rate-growth)))
+}
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+  
+  # Application title
+  titlePanel("Savings Visualisation"),
+  
+  # Sidebar with a slider input for number of bins 
+  wellPanel(
+    fluidRow(
+      column(6, 
+             sliderInput("in.amnt",
+                         "Inital Amount",
+                         min = 0,
+                         max = 100000,
+                         value = 1000,
+                         step = 500),
+             sliderInput("an.cnt",
+                         "Annual Contribution",
+                         min = 0,
+                         max = 50000,
+                         value = 2000,
+                         step = 500),
+             sliderInput("rtrn",
+                         "Return Rate",
+                         min = 0,
+                         max = 0.2,
+                         value = 0.05,
+                         step = 0.001)
+      ),
+      
+      column(6, 
+             sliderInput("grth",
+                         "Growth Rate",
+                         min = 0,
+                         max = 0.2,
+                         value = 0.05,
+                         step = 0.001),
+             sliderInput("yrs",
+                         "Years",
+                         min = 0,
+                         max = 50,
+                         value = 20,
+                         step = 1),
+             selectInput("fct", 
+                         "Facet?",
+                         c("Yes", "No"),
+                         selected = "No")
+      ))),
+  
+  hr(),
+  
+  # Show a plot of the generated distribution
+  mainPanel(
+    plotOutput("savings.plt"),
+    dataTableOutput("savings.tbl")
+    
+  )
+)
+
+#Define functions to be called by server
+
+server <- function(input, output) {
+  
+  #Generate blank table to fill with results
+  modalities <- reactive({
+    #Blank Table
+    modalities <- data.frame(array(0, c(input$yrs + 1, 4)))
+    
+    #Years Column
+    modalities[ , 1] <- c(0:input$yrs)
+    
+    #Column Names
+    names(modalities) <- c("Year", "No contribution", "Fixed contribution", "Growing Contribution")
+    
+    #Columns with data
+    modalities[ , 1] <- FV(input$in.amnt, input$rtrn, 0:input$yrs)
+    modalities[ , 3] <- FVA(input$an.cnt, input$rtrn, 0:input$yrs)
+    modalities[ , 4] <- FVGA(input$an.cnt, input$rtrn, input$grth, 0:input$yrs)
+    
+    return(modalities)
+  })
+  
+  #Rearrange longways - for plotting
+  longtable <- reactive({
+    melt.data.frame(modalities(), id.vars = modalities()$Year, variable_name = "Plan")
+  })
+  balance.longtable <- melt.data.frame(modalities(), id.vars = modalities()$Year, variable_name = "Plan")
+  
+  output$savings.plt <- renderPlot({
+    balance.longtable <- longtable()
+    # 
+    # #Define plotting function
+    # savings.plot <- function(data = balance.longtable) {
+    if (input$fct == "Yes") {
+      ggplot(data = balance.longtable) + geom_line(aes(x = "Year", y = "Plan", colour = "Plan"))
+    }
+    else {
+      ggplot(data = balance.longtable) + geom_line(aes(x = "Year", y = "Plan", colour = "Plan")) + facet_grid( .~ "Plan")
+    }
+  }
+  
+  savings.plot(data = balance.longtable)
+})
+  
+  output$savings.tbl <- renderTable({modalities()})
+  
+  }
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+

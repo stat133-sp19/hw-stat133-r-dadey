@@ -1,0 +1,54 @@
+title: "Using Binomial"
+author: "Reigne Dadey"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to Binomial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = FALSE, message = FALSE}
+knitr::opts_chunk$set(collapse = T)
+library(Binomial)
+```
+
+## About the package
+
+The package `"Binomial"` provides a simple binomial probability calculator and graphing tool.
+
+
+## Basic functions`
+
+The functions bin_mean, bin_median, bin_mode, bin_skewness and bin_kurtosis provide basic descriptive stats:
+
+```{r}
+mean <- bin_mean(trials = 10, prob = 0.5)
+mode <- bin_mode(trials = 10, prob = 0.5)
+kurtosis <- bin_kurtosis(trials = 10, prob = 0.5)
+```
+
+By default, the functions do not specify default values.
+
+## Generating tables
+
+The functions bin_distribution, and bin_cumulative, generate PDF and CDF tables respectively.  In addition, bin_probability provides a simple distribution of the binomial variable.
+
+```{r}
+pdf <- bin_distribution(trials = 10, prob = 0.5)
+cdf <- bin_cumulative(trials = 10, prob = 0.5)
+sum <- bin_variable(trials = 10, prob = 0.5)
+```
+
+
+## Plot of relative frequencies
+
+You can use the functions `plot()`and summarise() to create graphs and summary tables which illustrate the likelihood of various outcomes:
+
+```{r, fig.show='hold'}
+plot(cdf) #plots CDF function
+
+summary(sum) #shows detailed summary
+
+
+```

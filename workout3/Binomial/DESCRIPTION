@@ -1,0 +1,12 @@
+Package: Binomial
+Type: Package
+Title: Calculates and Plots Binomial Probability Distributions
+Version: 0.1.0
+Author: Reigne Dadey
+Maintainer: Reigne Dadey <yourself@somewhere.net>
+Description: Functions generate, describe and summarise random binomial variables, 
+    and plot histograms and line plots representing all possible scenarios.
+License: UTF-8
+Encoding: ASCII
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1

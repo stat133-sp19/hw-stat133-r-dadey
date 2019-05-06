@@ -1,4 +1,4 @@
 library(testthat)
 library(Binomial)
 
-test_check("binomial")
+test_check("Binomial")

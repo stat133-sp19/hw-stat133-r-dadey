@@ -56,7 +56,6 @@ aux_mode <- function(trials, prob) {
   else {
     return(c(m-1, m))
   }
-}
 
 aux_skewness <- function(trials, prob) {
     return((1-2*prob)/((trials*prob*(1-prob))^0.5))

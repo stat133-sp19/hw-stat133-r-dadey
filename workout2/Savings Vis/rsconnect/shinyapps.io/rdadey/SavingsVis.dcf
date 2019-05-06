@@ -1,0 +1,12 @@
+name: SavingsVis
+title:
+username:
+account: rdadey
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 874342
+bundleId: 2020603
+url: https://rdadey.shinyapps.io/SavingsVis/
+when: 1555570463.07755
+asMultiple: FALSE
+asStatic: FALSE

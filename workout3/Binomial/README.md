@@ -18,7 +18,7 @@ Install the development version from GitHub via the package `"devtools"`:
 # development version from GitHub:
 #install.packages("devtools") 
 # install "binomial" (without vignettes)
-devtools::install_github("rdadey/Binomial")
-# install "cointoss" (with vignettes)
-devtools::install_github("rdadey/Binomial", build_vignettes = TRUE)
+devtools::install_github("hw-stat133-r-dadey/tree/master/workout3/Binomial")
+# install "Binomial" (with vignettes)
+devtools::install_github("hw-stat133-r-dadey/tree/master/workout3/Binomial", build_vignettes = TRUE)
 ```
